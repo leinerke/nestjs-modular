@@ -8,10 +8,12 @@ import {
   Delete,
   ParseIntPipe,
 } from '@nestjs/common';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
 import { UsersService } from '../services/users.service';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
+@ApiTags('Users')
 @Controller('users')
 export class UsersController {
   constructor(private usersService: UsersService) {}
@@ -27,6 +29,7 @@ export class UsersController {
   }
 
   @Get(':id/orders')
+  @ApiOperation({ summary: 'Get orders by users' })
   getOrders(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.getOrdersByUser(id);
   }
